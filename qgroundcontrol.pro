@@ -1292,7 +1292,10 @@ SOURCES += \
 # MAVLink Inspector
 
 contains (DEFINES, QGC_DISABLE_MAVLINK_INSPECTOR) {
-    message("Disable mavlink inspector")
+    message("Disable mavlink inspector (manual override from command line)")
+} else:exists(user_config.pri):infile(user_config.pri, DEFINES, QGC_DISABLE_MAVLINK_INSPECTOR) {
+    message("Disable mavlink inspector (manual override from user_config.pri)")
+    DEFINES += QGC_DISABLE_MAVLINK_INSPECTOR
 } else {
     HEADERS += \
         src/AnalyzeView/MAVLinkInspectorController.h
