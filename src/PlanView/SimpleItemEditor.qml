@@ -265,11 +265,33 @@ Rectangle {
                 Repeater {
                     model: missionItem.nanFacts
 
-                    FactTextField {
-                        showUnits:          true
-                        fact:               object
+                    ColumnLayout {
                         Layout.fillWidth:   true
-                        enabled:            !isNaN(object.rawValue)
+                        spacing:            ScreenTools.defaultFontPixelHeight / 4
+
+                        FactTextField {
+                            showUnits:          true
+                            fact:               object
+                            Layout.fillWidth:   true
+                            enabled:            !isNaN(object.rawValue)
+                        }
+
+                        // Debug label to check object name
+                        QGCLabel {
+                            text: "Debug: " + object.name
+                            visible: false // Set to true if you need to see it on screen
+                            Component.onCompleted: console.log("NanFact Name:", object.name, "IsYaw:", object.name === "Yaw")
+                        }
+
+                        Slider {
+                            Layout.fillWidth:   true
+                            from:               0
+                            to:                 360
+                            // Case insensitive check and check for leading/trailing spaces
+                            visible:            !isNaN(object.rawValue) && (object.name.trim().toLowerCase() === "yaw")
+                            value:              isNaN(object.rawValue) ? 0 : object.rawValue
+                            onMoved:            object.rawValue = value
+                        }
                     }
                 }
 
