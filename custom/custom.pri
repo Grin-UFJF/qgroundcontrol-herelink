@@ -33,17 +33,17 @@ DEFINES += CUSTOMHEADER=\"\\\"HerelinkCorePlugin.h\\\"\"
 DEFINES += CUSTOMCLASS=HerelinkCorePlugin
 
 TARGET   = Herelink-QGroundControl
-DEFINES += QGC_APPLICATION_NAME='"\\\"Teste-Qground\\\""'
+DEFINES += QGC_APPLICATION_NAME='"\\\"Olhe5G-QGC\\\""'
 
 DEFINES += QGC_ORG_NAME=\"\\\"cubepilot.org\\\"\"
 DEFINES += QGC_ORG_DOMAIN=\"\\\"org.cubepilot\\\"\"
 
-QGC_APP_NAME        = "Teste-Qground"
-QGC_BINARY_NAME     = "Herelink-QGroundControl"
-QGC_ORG_NAME        = "Cubepilot"
-QGC_ORG_DOMAIN      = "org.cubepilot"
-QGC_ANDROID_PACKAGE = "com.olhe5g.teste.qground"
-QGC_APP_DESCRIPTION = "Teste-Qground"
+QGC_APP_NAME        = "Olhe5G-QGC"
+QGC_BINARY_NAME     = "Olhe5G-QGC"
+QGC_ORG_NAME        = "Grin-UFJF"
+QGC_ORG_DOMAIN      = "org.Olhe5G"
+QGC_ANDROID_PACKAGE = "com.olhe5g.qgroundcontrol"
+QGC_APP_DESCRIPTION = "Olhe5G-QGC"
 QGC_APP_COPYRIGHT   = "Copyright (C) 2024 Cubepilot. All rights reserved."
 
 # Remove code which the Herelink doesn't need
