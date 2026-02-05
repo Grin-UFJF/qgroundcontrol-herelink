@@ -120,7 +120,7 @@ Rectangle {
                 anchors.left:   parent.left
                 anchors.right:  parent.right
                 spacing:        0
-                visible:        _specifiesAltitude
+                visible:        _specifiesAltitude && (missionItem.command !== 16)
 
                 QGCLabel {
                     Layout.fillWidth:   true
@@ -225,7 +225,10 @@ Rectangle {
                 Repeater {
                     model: missionItem.textFieldFacts
 
-                    QGCLabel { text: object.name }
+                    QGCLabel {
+                        text:    object.name
+                        visible: missionItem.command === 16 ? object.name === "Yaw" : true
+                    }
                 }
 
                 Repeater {
@@ -243,7 +246,7 @@ Rectangle {
                     text:       qsTr("Flight Speed")
                     checked:    missionItem.speedSection.specifyFlightSpeed
                     onClicked:  missionItem.speedSection.specifyFlightSpeed = checked
-                    visible:    missionItem.speedSection.available
+                    visible:    missionItem.speedSection.available && (missionItem.command !== 16)
                 }
 
 
@@ -255,6 +258,7 @@ Rectangle {
                         fact:               object
                         Layout.fillWidth:   true
                         enabled:            !object.readOnly
+                        visible:            missionItem.command === 16 ? object.name === "Yaw" : true
                     }
                 }
 
@@ -273,7 +277,7 @@ Rectangle {
                     fact:               missionItem.speedSection.flightSpeed
                     Layout.fillWidth:   true
                     enabled:            flightSpeedCheckbox.checked
-                    visible:            missionItem.speedSection.available
+                    visible:            missionItem.speedSection.available && (missionItem.command !== 16)
                 }
             }
 
