@@ -50,6 +50,7 @@ public:
     Q_PROPERTY(bool     specifyCameraMode               READ specifyCameraMode              WRITE setSpecifyCameraMode          NOTIFY specifyCameraModeChanged)
     Q_PROPERTY(Fact*    cameraMode                      READ cameraMode                                                         CONSTANT)   ///< MAV_CMD_SET_CAMERA_MODE.param2
     Q_PROPERTY(Fact*    inspectionType                  READ inspectionType                                                     CONSTANT)
+    Q_PROPERTY(Fact*    zoomLevel                       READ zoomLevel                                                          CONSTANT)
 
     bool    specifyGimbal               (void) const { return _specifyGimbal; }
     Fact*   gimbalYaw                   (void) { return &_gimbalYawFact; }
@@ -61,6 +62,7 @@ public:
     bool    specifyCameraMode           (void) const { return _specifyCameraMode; }
     Fact*   cameraMode                  (void) { return &_cameraModeFact; }
     Fact*   inspectionType              (void) { return &_inspectionTypeFact; }
+    Fact*   zoomLevel                   (void) { return &_zoomLevelFact; }
 
     void setSpecifyGimbal       (bool specifyGimbal);
     void setSpecifyCameraMode   (bool specifyCameraMode);
@@ -126,6 +128,7 @@ private:
     Fact    _cameraPhotoIntervalTimeFact;
     Fact    _cameraModeFact;
     Fact    _inspectionTypeFact;
+    Fact    _zoomLevelFact;
     bool    _dirty;
 
     static QMap<QString, FactMetaData*> _metaDataMap;
@@ -137,6 +140,7 @@ private:
     static const char* _cameraPhotoIntervalTimeName;
     static const char* _cameraModeName;
     static const char* _inspectionTypeName;
+    static const char* _zoomLevelName;
 
     friend CameraSectionTest;
 };

@@ -58,6 +58,40 @@ Column {
             visible:        _camera.cameraAction.rawValue === 6 // Take Photo
         }
 
+        ColumnLayout {
+            anchors.left:   parent.left
+            anchors.right:  parent.right
+            spacing:        ScreenTools.defaultFontPixelWidth / 2
+            visible:        _camera.cameraAction.rawValue === 6 // Take Photo
+
+            QGCLabel {
+                text:           qsTr("Zoom")
+                Layout.fillWidth: true
+            }
+
+            RowLayout {
+                Layout.fillWidth: true
+                spacing: ScreenTools.defaultFontPixelWidth
+
+                Slider {
+                    Layout.fillWidth: true
+                    minimumValue: 0
+                    maximumValue: 100
+                    value: _camera.zoomLevel ? _camera.zoomLevel.value : 0
+                    onValueChanged: {
+                        if (_camera.zoomLevel) {
+                            _camera.zoomLevel.value = value
+                        }
+                    }
+                }
+
+                FactTextField {
+                    fact:               _camera.zoomLevel
+                    Layout.preferredWidth: ScreenTools.defaultFontPixelWidth * 6
+                }
+            }
+        }
+
         RowLayout {
             anchors.left:   parent.left
             anchors.right:  parent.right
