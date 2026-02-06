@@ -20,6 +20,7 @@ const char* CameraSection::_cameraActionName =                  "CameraAction";
 const char* CameraSection::_cameraPhotoIntervalDistanceName =   "CameraPhotoIntervalDistance";
 const char* CameraSection::_cameraPhotoIntervalTimeName =       "CameraPhotoIntervalTime";
 const char* CameraSection::_cameraModeName =                    "CameraMode";
+const char* CameraSection::_inspectionTypeName =                "InspectionType";
 
 QMap<QString, FactMetaData*> CameraSection::_metaDataMap;
 
@@ -35,6 +36,7 @@ CameraSection::CameraSection(PlanMasterController* masterController, QObject* pa
     , _cameraPhotoIntervalDistanceFact  (0, _cameraPhotoIntervalDistanceName,   FactMetaData::valueTypeDouble)
     , _cameraPhotoIntervalTimeFact      (0, _cameraPhotoIntervalTimeName,       FactMetaData::valueTypeUint32)
     , _cameraModeFact                   (0, _cameraModeName,                    FactMetaData::valueTypeUint32)
+    , _inspectionTypeFact               (0, _inspectionTypeName,                FactMetaData::valueTypeUint32)
     , _dirty                            (false)
 {
     if (_metaDataMap.isEmpty()) {
@@ -47,6 +49,7 @@ CameraSection::CameraSection(PlanMasterController* masterController, QObject* pa
     _cameraPhotoIntervalDistanceFact.setMetaData    (_metaDataMap[_cameraPhotoIntervalDistanceName]);
     _cameraPhotoIntervalTimeFact.setMetaData        (_metaDataMap[_cameraPhotoIntervalTimeName]);
     _cameraModeFact.setMetaData                     (_metaDataMap[_cameraModeName]);
+    _inspectionTypeFact.setMetaData                 (_metaDataMap[_inspectionTypeName]);
 
     _gimbalPitchFact.setRawValue                    (_gimbalPitchFact.rawDefaultValue());
     _gimbalYawFact.setRawValue                      (_gimbalYawFact.rawDefaultValue());
@@ -54,6 +57,7 @@ CameraSection::CameraSection(PlanMasterController* masterController, QObject* pa
     _cameraPhotoIntervalDistanceFact.setRawValue    (_cameraPhotoIntervalDistanceFact.rawDefaultValue());
     _cameraPhotoIntervalTimeFact.setRawValue        (_cameraPhotoIntervalTimeFact.rawDefaultValue());
     _cameraModeFact.setRawValue                     (_cameraModeFact.rawDefaultValue());
+    _inspectionTypeFact.setRawValue                 (_inspectionTypeFact.rawDefaultValue());
 
     connect(this,                               &CameraSection::specifyGimbalChanged,       this, &CameraSection::_specifyChanged);
     connect(this,                               &CameraSection::specifyCameraModeChanged,   this, &CameraSection::_specifyChanged);
@@ -65,6 +69,7 @@ CameraSection::CameraSection(PlanMasterController* masterController, QObject* pa
     connect(&_cameraPhotoIntervalDistanceFact,  &Fact::valueChanged,                        this, &CameraSection::_setDirty);
     connect(&_cameraPhotoIntervalTimeFact,      &Fact::valueChanged,                        this, &CameraSection::_setDirty);
     connect(&_cameraModeFact,                   &Fact::valueChanged,                        this, &CameraSection::_setDirty);
+    connect(&_inspectionTypeFact,               &Fact::valueChanged,                        this, &CameraSection::_setDirty);
     connect(this,                               &CameraSection::specifyGimbalChanged,       this, &CameraSection::_setDirty);
     connect(this,                               &CameraSection::specifyCameraModeChanged,   this, &CameraSection::_setDirty);
 

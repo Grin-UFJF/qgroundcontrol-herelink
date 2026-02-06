@@ -49,6 +49,15 @@ Column {
             indexModel:     false
         }
 
+        FactComboBox {
+            id:             inspectionTypeCombo
+            anchors.left:   parent.left
+            anchors.right:  parent.right
+            fact:           _camera.inspectionType
+            indexModel:     false
+            visible:        _camera.cameraAction.rawValue === 6 // Take Photo
+        }
+
         RowLayout {
             anchors.left:   parent.left
             anchors.right:  parent.right

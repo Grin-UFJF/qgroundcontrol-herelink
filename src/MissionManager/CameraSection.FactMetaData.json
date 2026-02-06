@@ -57,6 +57,14 @@
             "enumStrings": "Photo,Video,Survey",
             "enumValues": "0,1,2",
             "default": 0
+        },
+        {
+            "name": "InspectionType",
+            "shortDesc": "Type of object to inspect",
+            "type": "uint32",
+            "enumStrings": "Disjuntor,Estruturas,IP,Para Raio,Reator,Seccionadora Horizontal,Seccionadora Vertical,TC,TPC",
+            "enumValues": "0,1,2,3,4,5,6,7,8",
+            "default": 0
         }
     ]
 }
