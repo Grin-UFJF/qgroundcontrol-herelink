@@ -36,7 +36,8 @@ Canvas {
     property real   _normalRadiusRaw:   Math.ceil(ScreenTools.defaultFontPixelHeight * 0.66)
     property real   _normalRadius:      _normalRadiusRaw + ((_normalRadiusRaw % 2 == 0) ? 1 : 0)
     property real   _indicatorRadius:   small ? _smallRadius : _normalRadius
-    property real   _gimbalRadians:     degreesToRadians(vehicleYaw + gimbalYaw - 90)
+    property real   _vehicleYaw:        isNaN(vehicleYaw) ? 0 : vehicleYaw
+    property real   _gimbalRadians:     degreesToRadians(_vehicleYaw + gimbalYaw - 90)
     property real   _labelMargin:       2
     property real   _labelRadius:       _indicatorRadius + _labelMargin
     property string _label:             label.length > 1 ? label : ""
