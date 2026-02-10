@@ -144,33 +144,64 @@ Column {
             }
         }
 
-        GridLayout {
+        ColumnLayout {
             anchors.left:   parent.left
             anchors.right:  parent.right
-            columnSpacing:  ScreenTools.defaultFontPixelWidth / 2
-            rowSpacing:     0
-            columns:        3
-
-            QGCLabel { text: qsTr("Gimbal") }
-            QGCLabel { text: qsTr("Pitch") }
-            QGCLabel { text: qsTr("Yaw") }
+            spacing:        ScreenTools.defaultFontPixelWidth / 2
 
             QGCCheckBox {
                 id:                 gimbalCheckBox
+                text:               qsTr("Gimbal")
                 checked:            _camera.specifyGimbal
                 onClicked:          _camera.specifyGimbal = checked
-                Layout.fillWidth:   true
-            }
-            FactTextField {
-                fact:           _camera.gimbalPitch
-                implicitWidth:  ScreenTools.defaultFontPixelWidth * 9
-                enabled:        gimbalCheckBox.checked
             }
 
-            FactTextField {
-                fact:           _camera.gimbalYaw
-                implicitWidth:  ScreenTools.defaultFontPixelWidth * 9
-                enabled:        gimbalCheckBox.checked
+            QGCLabel {
+                text:           qsTr("Pitch")
+                visible:        gimbalCheckBox.checked
+            }
+
+            RowLayout {
+                visible:            gimbalCheckBox.checked
+                Layout.fillWidth:   true
+                spacing:            ScreenTools.defaultFontPixelWidth
+
+                Slider {
+                    Layout.fillWidth: true
+                    minimumValue: 0
+                    maximumValue: 90
+                    value: _camera.gimbalPitch.value
+                    onValueChanged: _camera.gimbalPitch.value = value
+                }
+
+                FactTextField {
+                    fact:               _camera.gimbalPitch
+                    Layout.preferredWidth: ScreenTools.defaultFontPixelWidth * 6
+                }
+            }
+
+            QGCLabel {
+                text:           qsTr("Yaw")
+                visible:        gimbalCheckBox.checked
+            }
+
+            RowLayout {
+                visible:            gimbalCheckBox.checked
+                Layout.fillWidth:   true
+                spacing:            ScreenTools.defaultFontPixelWidth
+
+                Slider {
+                    Layout.fillWidth: true
+                    minimumValue: -180
+                    maximumValue: 180
+                    value: _camera.gimbalYaw.value
+                    onValueChanged: _camera.gimbalYaw.value = value
+                }
+
+                FactTextField {
+                    fact:               _camera.gimbalYaw
+                    Layout.preferredWidth: ScreenTools.defaultFontPixelWidth * 6
+                }
             }
         }
     }

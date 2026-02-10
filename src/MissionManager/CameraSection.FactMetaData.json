@@ -33,8 +33,8 @@
             "shortDesc": "Gimbal pitch rotation.",
             "type": "double",
             "units": "gimbal-degrees",
-            "min": -90,
-            "max": 0,
+            "min": 0,
+            "max": 90,
             "increment": 5,
             "decimalPlaces": 0,
             "default": 0
