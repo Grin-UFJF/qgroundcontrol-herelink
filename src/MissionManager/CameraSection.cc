@@ -198,8 +198,8 @@ void CameraSection::appendSectionItems(QList<MissionItem*>& items, QObject* miss
             item = new MissionItem(nextSequenceNumber++,
                                    MAV_CMD_IMAGE_START_CAPTURE,
                                    MAV_FRAME_MISSION,
-                                   0,                           // Reserved (Set to 0)
-                                   0,                           // Interval (none)
+                                   _inspectionTypeFact.rawValue().toDouble(),   // Param 1: Inspection Type
+                                   _zoomLevelFact.rawValue().toDouble(),        // Param 2: Zoom Level
                                    1,                           // Take 1 photo
                                    0,                           // No sequence number specified
                                    qQNaN(), qQNaN(), qQNaN(),   // reserved
@@ -280,8 +280,10 @@ bool CameraSection::_scanTakePhoto(QmlObjectListModel* visualItems, int scanInde
     if (item) {
         MissionItem& missionItem = item->missionItem();
         if ((MAV_CMD)item->command() == MAV_CMD_IMAGE_START_CAPTURE) {
-            if (missionItem.param1() == 0 && missionItem.param2() == 0 && missionItem.param3() == 1) {
+            if (missionItem.param3() == 1) {
                 cameraAction()->setRawValue(TakePhoto);
+                inspectionType()->setRawValue(missionItem.param1());
+                zoomLevel()->setRawValue(missionItem.param2());
                 visualItems->removeAt(scanIndex)->deleteLater();
                 return true;
             }
