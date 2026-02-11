@@ -172,6 +172,7 @@ void SimpleMissionItem::_connectSignals(void)
 
     connect(&_missionItem._param1Fact,          &Fact::valueChanged,                        this, &SimpleMissionItem::_possibleAdditionalTimeDelayChanged);
     connect(&_missionItem._param4Fact,          &Fact::valueChanged,                        this, &SimpleMissionItem::_possibleVehicleYawChanged);
+    connect(&_missionItem._param4Fact,          &Fact::valueChanged,                        this, &SimpleMissionItem::_updateAltitudeFromYaw);
 
     // For NAV_LOITER_X commands, they must emit a radiusChanged signal
     connect(&_missionItem._param2Fact,          &Fact::valueChanged,                        this, &SimpleMissionItem::_possibleRadiusChanged);
@@ -796,7 +797,12 @@ void SimpleMissionItem::_setDefaultsForCommand(void)
         _missionItem._param7Fact.setRawValue(defaultAlt);
         // Note that setAltitudeMode will also set MAV_FRAME correctly through signalling
         // Takeoff items always use relative alt since that is the highest quality data to base altitude from
-        setAltitudeMode(isTakeoffItem() ? QGroundControlQmlGlobal::AltitudeModeRelative : _missionController->globalAltitudeModeDefault());
+        if (command() == MAV_CMD_NAV_WAYPOINT) {
+             _altitudeFact.setRawValue(_missionItem._param4Fact.rawValue().toDouble());
+             _missionItem._param7Fact.setRawValue(_missionItem._param4Fact.rawValue().toDouble());
+        } else {
+             setAltitudeMode(isTakeoffItem() ? QGroundControlQmlGlobal::AltitudeModeRelative : _missionController->globalAltitudeModeDefault());
+        }
     } else {
         _altitudeFact.setRawValue(0);
         _missionItem._param7Fact.setRawValue(0);
@@ -1110,5 +1116,13 @@ void SimpleMissionItem::_possibleRadiusChanged(void)
 {
     if (isLoiterItem()) {
         emit loiterRadiusChanged(loiterRadius());
+    }
+}
+
+void SimpleMissionItem::_updateAltitudeFromYaw(void)
+{
+    if (command() == MAV_CMD_NAV_WAYPOINT) {
+        _altitudeFact.setRawValue(_missionItem._param4Fact.rawValue());
+        _missionItem._param7Fact.setRawValue(_missionItem._param4Fact.rawValue());
     }
 }

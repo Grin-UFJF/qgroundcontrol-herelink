@@ -22,10 +22,7 @@ Column {
     property real   _fieldWidth:    ScreenTools.defaultFontPixelWidth * 16
     property real   _margin:        ScreenTools.defaultFontPixelWidth / 2
 
-    Component.onCompleted: {
-        _camera.specifyCameraMode = true
-        _camera.cameraMode.rawValue = 0
-    }
+
 
     SectionHeader {
         id:             cameraSectionHeader

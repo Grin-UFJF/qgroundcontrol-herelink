@@ -107,9 +107,7 @@ int CameraSection::itemCount(void) const
     if (_specifyGimbal) {
         itemCount++;
     }
-    if (_specifyCameraMode) {
-        itemCount++;
-    }
+
     if (_cameraActionFact.rawValue().toInt() != CameraActionNone) {
         itemCount++;
     }
@@ -129,18 +127,7 @@ void CameraSection::appendSectionItems(QList<MissionItem*>& items, QObject* miss
 {
     // IMPORTANT NOTE: If anything changes here you must also change CameraSection::scanForSection
 
-    if (_specifyCameraMode) {
-        MissionItem* item = new MissionItem(nextSequenceNumber++,
-                                            MAV_CMD_SET_CAMERA_MODE,
-                                            MAV_FRAME_MISSION,
-                                            0,                                              // Reserved (Set to 0)
-                                            _cameraModeFact.rawValue().toDouble(),
-                                            qQNaN(), qQNaN(), qQNaN(), qQNaN(), qQNaN(),    // reserved
-                                            true,                                           // autoContinue
-                                            false,                                          // isCurrentItem
-                                            missionItemParent);
-        items.append(item);
-    }
+
 
     if (_specifyGimbal) {
         MissionItem* item = new MissionItem(nextSequenceNumber++,
@@ -448,7 +435,7 @@ bool CameraSection::_scanSetCameraMode(QmlObjectListModel* visualItems, int scan
         MissionItem& missionItem = item->missionItem();
         if ((MAV_CMD)item->command() == MAV_CMD_SET_CAMERA_MODE) {
             // We specifically don't test param 5/6/7 since we don't have NaN persistence for those fields
-            if (missionItem.param1() == 0 && (missionItem.param2() == CAMERA_MODE_IMAGE || missionItem.param2() == CAMERA_MODE_VIDEO || missionItem.param2() == CAMERA_MODE_IMAGE_SURVEY) && qIsNaN(missionItem.param3())) {
+            if (missionItem.param1() == 0 && (missionItem.param2() == CAMERA_MODE_IMAGE || missionItem.param2() == CAMERA_MODE_VIDEO || missionItem.param2() == CAMERA_MODE_IMAGE_SURVEY) && (qIsNaN(missionItem.param3()) || missionItem.param3() == 0)) {
                 setSpecifyCameraMode(true);
                 cameraMode()->setRawValue(missionItem.param2());
                 visualItems->removeAt(scanIndex)->deleteLater();

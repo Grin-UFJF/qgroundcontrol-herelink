@@ -165,6 +165,7 @@ private slots:
     void _possibleVehicleYawChanged             (void);
     void _signalIfVTOLTransitionCommand         (void);
     void _possibleRadiusChanged                 (void);
+    void _updateAltitudeFromYaw                 (void);
 
 private:
     void _connectSignals        (void);

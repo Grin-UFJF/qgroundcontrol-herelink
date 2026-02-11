@@ -236,8 +236,14 @@ Rectangle {
 
                     QGCCheckBox {
                         text:           object.name
-                        checked:        !isNaN(object.rawValue)
-                        onClicked:      object.rawValue = checked ? 0 : NaN
+                        checked:        object.name === "Yaw" ? (object.rawValue !== -1) : !isNaN(object.rawValue)
+                        onClicked:      {
+                            if (object.name === "Yaw") {
+                                object.rawValue = checked ? 0 : -1
+                            } else {
+                                object.rawValue = checked ? 0 : NaN
+                            }
+                        }
                     }
                 }
 
@@ -273,7 +279,7 @@ Rectangle {
                             showUnits:          true
                             fact:               object
                             Layout.fillWidth:   true
-                            enabled:            !isNaN(object.rawValue)
+                            enabled:            object.name === "Yaw" ? object.rawValue !== -1 : !isNaN(object.rawValue)
                         }
 
                         // Debug label to check object name
@@ -288,8 +294,8 @@ Rectangle {
                             from:               0
                             to:                 360
                             // Case insensitive check and check for leading/trailing spaces
-                            visible:            !isNaN(object.rawValue) && (object.name.trim().toLowerCase() === "yaw")
-                            value:              isNaN(object.rawValue) ? 0 : object.rawValue
+                            visible:            (object.name === "Yaw" ? object.rawValue !== -1 : !isNaN(object.rawValue)) && (object.name.trim().toLowerCase() === "yaw")
+                            value:              isNaN(object.rawValue) || (object.name === "Yaw" && object.rawValue === -1) ? 0 : object.rawValue
                             onMoved:            object.rawValue = value
                         }
                     }
