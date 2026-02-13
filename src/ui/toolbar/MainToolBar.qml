@@ -167,6 +167,18 @@ Rectangle {
         }
     }
 
+    // Fixed Olhe5G Logo
+    Image {
+        anchors.right:          parent.right
+        anchors.top:            parent.top
+        anchors.bottom:         parent.bottom
+        anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.66
+        fillMode:               Image.PreserveAspectFit
+        source:                 "qrc:/qmlimages/OlheLogo.png"
+        mipmap:                 true
+        visible:                true
+    }
+
     // Small parameter download progress bar
     Rectangle {
         anchors.bottom: parent.bottom

@@ -234,14 +234,31 @@ Rectangle {
                 Repeater {
                     model: missionItem.nanFacts
 
-                    QGCCheckBox {
-                        text:           object.name
-                        checked:        object.name === "Yaw" ? (object.rawValue !== -1) : !isNaN(object.rawValue)
-                        onClicked:      {
-                            if (object.name === "Yaw") {
-                                object.rawValue = checked ? 0 : -1
-                            } else {
-                                object.rawValue = checked ? 0 : NaN
+                    RowLayout {
+                        spacing: ScreenTools.defaultFontPixelWidth
+
+                        QGCCheckBox {
+                            text:           object.name
+                            checked:        object.name === "Yaw" ? (object.rawValue !== -1) : !isNaN(object.rawValue)
+                            onClicked:      {
+                                if (object.name === "Yaw") {
+                                    object.rawValue = checked ? 0 : -1
+                                } else {
+                                    object.rawValue = checked ? 0 : NaN
+                                }
+                            }
+                        }
+
+                        QGCCheckBox {
+                            text:           qsTr("Park")
+                            visible:        object.name === "Yaw" && (object.rawValue !== -1)
+                            checked:        object.rawValue >= 360
+                            onClicked:      {
+                                if (checked) {
+                                    object.rawValue += 360
+                                } else {
+                                    object.rawValue -= 360
+                                }
                             }
                         }
                     }

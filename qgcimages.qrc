@@ -207,5 +207,6 @@
         <file alias="Yield.svg">src/ui/toolbar/Images/Yield.svg</file>
         <file alias="ZoomMinus.svg">src/FlightMap/Images/ZoomMinus.svg</file>
         <file alias="ZoomPlus.svg">src/FlightMap/Images/ZoomPlus.svg</file>
+        <file alias="OlheLogo.png">android/res/logo-olhe5g-qleo572ggwdnukcppju88g7nxi52v14cz0a4fz668i__1_-removebg-preview.png</file>
     </qresource>
 </RCC>
