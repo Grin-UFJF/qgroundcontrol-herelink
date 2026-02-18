@@ -98,7 +98,8 @@ Rectangle {
         anchors.bottomMargin:   1
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
-        anchors.right:          parent.right
+        anchors.right:          olheLogo.left
+        anchors.rightMargin:    ScreenTools.defaultFontPixelWidth
         contentWidth:           indicatorLoader.x + indicatorLoader.width
         flickableDirection:     Flickable.HorizontalFlick
 
@@ -120,7 +121,7 @@ Rectangle {
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
         anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.66
-        visible:                currentToolbar !== planViewToolbar && _activeVehicle && !_communicationLost && x > (toolsFlickable.x + toolsFlickable.contentWidth + ScreenTools.defaultFontPixelWidth)
+        visible:                false
         fillMode:               Image.PreserveAspectFit
         source:                 _outdoorPalette ? _brandImageOutdoor : _brandImageIndoor
         mipmap:                 true
@@ -169,6 +170,7 @@ Rectangle {
 
     // Fixed Olhe5G Logo
     Image {
+        id:                     olheLogo
         anchors.right:          parent.right
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom

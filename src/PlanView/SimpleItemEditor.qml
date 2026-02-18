@@ -308,8 +308,8 @@ Rectangle {
 
                         Slider {
                             Layout.fillWidth:   true
-                            from:               0
-                            to:                 360
+                            from:               object.rawValue >= 360 ? 360 : 0
+                            to:                 object.rawValue >= 360 ? 719 : 359
                             // Case insensitive check and check for leading/trailing spaces
                             visible:            (object.name === "Yaw" ? object.rawValue !== -1 : !isNaN(object.rawValue)) && (object.name.trim().toLowerCase() === "yaw")
                             value:              isNaN(object.rawValue) || (object.name === "Yaw" && object.rawValue === -1) ? 0 : object.rawValue
